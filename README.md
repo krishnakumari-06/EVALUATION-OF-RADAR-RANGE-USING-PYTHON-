@@ -28,7 +28,42 @@ transmitter gain, receiver gain, radar frequency, radar cross section, and minim
    ___Algorithm__:
    
 
+```clc
+clear;
+close;
 
+Pt = 1000;
+G = 40;
+lambda = 0.05;
+sigma = 10;
+pi4 = (4*%pi)^3;
+
+R = linspace(1e3, 200e3, 500);
+Pr_R = (Pt .* G^2 .* lambda^2 .* sigma) ./ (pi4 .* R.^4);
+figure(1);
+Pr_R_dB = 10 .* log10(Pr_R);
+plot(R/1000, Pr_R_dB);
+xlabel("Power Received");
+ylabel("Range");
+
+Pt_values = linspace(100, 10000, 500);
+R_fixed = 50e3;
+Pr_Pt = (Pt_values .* G^2 .* lambda^2 .* sigma) ./ (pi4 .* R_fixed.^4);
+figure(2);
+plot(Pt_values, Pr_Pt);
+xlabel("Power Received");
+ylabel("Power Transmitted");
+
+G_values = linspace(5, 60, 500);
+Pt_fixed = 3000;
+Pr_G = (Pt_fixed .* G_values.^2 .* lambda^2 .* sigma) ./ (pi4 .* R_fixed.^4);
+figure(3);
+plot(G_values, Pr_G);
+xlabel("Power Received");
+ylabel("Gain");
+
+
+```
 
 
 
@@ -38,13 +73,14 @@ transmitter gain, receiver gain, radar frequency, radar cross section, and minim
    
 
 
+<img width="746" height="588" alt="image" src="https://github.com/user-attachments/assets/7fb02339-4dfd-4859-b535-32e08ddcab09" />
 
 
 
 
 
    __Result__:
-   
+   Thus, the maximum range of a radar system using the Radar Range Equation is verified through a Python program.
 
 
 
